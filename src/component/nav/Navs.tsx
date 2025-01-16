@@ -1,6 +1,5 @@
 import React from 'react';
 import "./Navs.scss"
-import { NavLink } from 'react-router';
 import clock from "./../../assets/Clock.png"
 import teams from "./../../assets/Teams.png"
 import tasks from "./../../assets/Task.png"

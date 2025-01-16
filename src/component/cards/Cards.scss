@@ -1,0 +1,41 @@
+.small-card {
+    background-color: #232931;
+    width: 295px;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    min-height: 211px;
+
+    &.time-card {
+        position: relative;
+
+        .week {
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 27.24px;
+
+            .day {
+                font-size: 24px;
+                font-weight: 800;
+                line-height: 32.68px;
+            }
+        }
+
+        .time-wrapper {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 16px 64px;
+            background: #393E46;
+            box-shadow: 0px 4px 4px 0px #00000040 inset;
+            border-radius: 10px;
+
+            .time {
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 27.24px;
+            }
+        }
+    }
+}

@@ -1,3 +1,23 @@
+:root {
+  --black-v2: #232931;
+  --black: #393E46;
+  --side: #4ECCA3;
+  --white: #EEEEEE;
+}
+
+$breakpoints: (
+  'desktop': 768px,
+);
+
+@mixin media-query($size) {
+  $breakpoint: map-get($breakpoints, $size);
+  @if $breakpoint {
+    @media (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
 body {
   margin: 0;
   background-color: #393E46;
@@ -7,5 +27,9 @@ body {
   color: #ffffff;
   box-sizing: border-box;
   font-family: Noto Sans Hebrew;
+}
+
+p, h1, h2, h3, h4, h5, h6{
+  margin: 0;
 }
 

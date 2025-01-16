@@ -7,6 +7,7 @@
     padding: 0 16px;
     gap: 24px;
     position: absolute;
+    align-items: center;
     top: 0;
 
     .logo {
@@ -28,7 +29,8 @@
     display: flex;
 
     .wrapper{
-        padding: 16px 24px;
+        padding: 24px;
         max-width: 1440px;
+        overflow: hidden;
     }
 }

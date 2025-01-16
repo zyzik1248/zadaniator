@@ -1,9 +1,13 @@
 import React from 'react';
+import "./Home.scss"
+import TimeCard from '../component/cards/TimeCard.tsx';
 
 const Home = () =>{
     return(
-        <div>
-            <h1>Home</h1>
+        <div className="home">
+            <div className="first-row">
+                <TimeCard/>
+            </div>
         </div>
     )
 }

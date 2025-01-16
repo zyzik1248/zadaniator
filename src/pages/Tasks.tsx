@@ -45,7 +45,6 @@ const Tasks = () => {
                             value={formData.title}
                             onChange={handleInputChange}
                             className="text-input"
-                            style={{ color: '#000' }}
                         />
                     </div>
                     <div className="form-group">
@@ -57,7 +56,6 @@ const Tasks = () => {
                             value={formData.project}
                             onChange={handleInputChange}
                             className="text-input"
-                            style={{ color: '#000' }}
                         />
                     </div>
                     <div className="form-group">
@@ -68,7 +66,6 @@ const Tasks = () => {
                             value={formData.content}
                             onChange={handleInputChange}
                             className="text-input"
-                            style={{ color: '#000' }}
                         ></textarea>
                     </div>
                     <button className="form-submit-button" type="submit">Save Task</button>

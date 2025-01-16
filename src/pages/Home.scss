@@ -4,4 +4,11 @@
         display: flex;
         gap: 20px;
     }
+
+    .second-row{
+        flex-wrap: wrap;
+        display: flex;
+        gap: 20px;
+        margin-top: 52px;
+    }
 }

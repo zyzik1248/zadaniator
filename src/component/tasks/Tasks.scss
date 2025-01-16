@@ -1,0 +1,22 @@
+.tasks {
+    &-column{
+        width: 610px;
+    }
+
+    .tasks-category {
+        .name {
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 19.07px;
+            margin-bottom: 4px;
+        }
+
+        .tasks-wrapper{
+            box-shadow: 0px 4px 4px 0px #00000040 inset;
+            max-width: 491px;
+            min-height: 216px;
+            border-radius: 5px;
+            background-color: var(--black);
+        }
+    }
+}

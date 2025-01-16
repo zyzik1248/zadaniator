@@ -57,3 +57,28 @@
         }
     }
 }
+
+.card {
+    position: relative;
+    background-color: var(--black-v2);
+    width: 295px;
+    padding: 16px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    min-height: 211px;
+    overflow: auto;
+
+    .title {
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 21.79px;
+        margin-bottom: 16px;
+    }
+
+    .divider{
+        height: 1px;
+        background-color: var(--white);
+        margin-bottom: 32px;
+    }
+}

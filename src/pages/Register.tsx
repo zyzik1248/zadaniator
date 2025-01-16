@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Register.scss'
 
 const Register = () => {
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });

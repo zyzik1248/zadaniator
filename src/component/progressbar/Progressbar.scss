@@ -1,0 +1,14 @@
+.progress-circle {
+    transform: rotate(-90deg);
+    transform-origin: center;
+
+    circle {
+        fill: none;
+    }
+
+    .progress {
+        stroke-dasharray: 314;
+        stroke-dashoffset: 314;
+        transition: stroke-dashoffset 0.5s ease-in-out;
+    }
+}

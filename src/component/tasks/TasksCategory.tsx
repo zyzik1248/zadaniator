@@ -5,11 +5,13 @@ interface IProps {
     name?: String
 }
 
-const TasksCategory:React.FC<IProps> = ({name}) => {
+const TasksCategory: React.FC<IProps> = ({ name }) => {
     return (
         <div className="tasks-category">
             <h3 className="name">{name}</h3>
-            <div className="tasks-wrapper"></div>
+            <p className="task-wrapper">
+                No tasks...
+            </p>
         </div>
     )
 }

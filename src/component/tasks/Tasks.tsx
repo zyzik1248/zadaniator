@@ -12,6 +12,9 @@ const Tasks:React.FC<IProps> = ({type = "column"}) => {
         <Card className={`tasks ${type == "row" ? "tasks-row" : "tasks-column"}`} title="Tasks">
             <div className="tasks-container">
                 <TasksCategory name="Urgent"/>
+                <TasksCategory name="Important"/>
+                <TasksCategory name="Medium"/>
+                <TasksCategory name="Light"/>
             </div>
 
         </Card>

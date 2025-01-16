@@ -8,8 +8,8 @@ import Profile from './pages/Profile.tsx';
 import Tasks from './pages/Tasks.tsx';
 import Feedback from './pages/Feedback.tsx';
 import Settings from './pages/Settings.tsx';
-import Login from './pages/Login.tsx'; // Import logowania
-import Register from './pages/Register.tsx'; // Import rejestracji
+import Login from './pages/Login.tsx';
+import Register from './pages/Register.tsx';
 
 const App = () => {
   return (

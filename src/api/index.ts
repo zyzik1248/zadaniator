@@ -1,1 +1,1 @@
-export { register } from './register.ts';
+export { register, login, checkAuth } from './registerLogin.ts';

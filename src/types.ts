@@ -1,8 +1,8 @@
-interface Tasks {
-    tasks: Task[]
+export interface ITasks {
+    tasks: ITask[]
 }
 
-interface Task {
+export interface ITask {
     id: number,
     title: string,
     description: string,
@@ -17,8 +17,13 @@ interface Task {
     project: number
 }
 
-interface register {
+export interface IRegister {
     username: string,
     password: string,
     email: string
+}
+
+export interface ILogin {
+    password: string,
+    username: string
 }

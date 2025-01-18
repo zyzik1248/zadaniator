@@ -15,11 +15,9 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Ścieżki bez układu (np. logowanie i rejestracja) */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
 
-        {/* Ścieżki z układem */}
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="calendar" element={<Calendar />} />

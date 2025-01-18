@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import './Register.scss'
 import { register } from '../api/index.ts';
+import { useNavigate } from "react-router";
 
 const Register = () => {
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const data = {
       username: e.target["username"].value,
@@ -17,7 +20,12 @@ const Register = () => {
       email: e.target["email"].value
     }
 
-    register({...data})
+    try{
+      await register(data)
+      navigate("/login")
+    } catch(error){
+      console.log(error)
+    }
   };
 
   return (

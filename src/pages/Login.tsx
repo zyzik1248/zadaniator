@@ -1,17 +1,28 @@
 import React, { useState } from 'react';
 import './Login.scss'
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { login } from '../api/index.ts';
 const Login = () => {
-    const [formData, setFormData] = useState({ email: '', password: '' });
+    const [formData, setFormData] = useState({ username: '', password: '' });
+    const navigate = useNavigate()
   
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     };
   
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
-      console.log('Login data:', formData);
-      // Dodaj logikę wysyłania danych na backend
+      try{
+        const data = {
+          password: e.target["password"].value,
+          username: e.target["username"].value
+        }
+        const resp = await login(data)
+        localStorage.setItem("authToken", resp.access);
+        navigate("/")
+      } catch(error){
+        console.log(error)
+      }
     };
   
     return (
@@ -19,10 +30,10 @@ const Login = () => {
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
+            type="username"
+            name="username"
+            placeholder="username"
+            value={formData.username}
             onChange={handleChange}
             required
           />

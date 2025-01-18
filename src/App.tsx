@@ -7,18 +7,16 @@ import Profile from './pages/Profile.tsx';
 import Tasks from './pages/Tasks.tsx';
 import Feedback from './pages/Feedback.tsx';
 import Settings from './pages/Settings.tsx';
-import Login from './pages/Login.tsx'; // Import logowania
-import Register from './pages/Register.tsx'; // Import rejestracji
+import Login from './pages/Login.tsx';
+import Register from './pages/Register.tsx';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Ścieżki bez układu (np. logowanie i rejestracja) */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
 
-        {/* Ścieżki z układem */}
         <Route element={<Layout />}>
           <Route index element={<Home />} />
 

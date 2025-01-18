@@ -2,6 +2,7 @@
   "name": "zadaniator2",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://20.33.68.96",
   "dependencies": {
     "cra-template-typescript": "1.2.0",
     "react": "^19.0.0",

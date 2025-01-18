@@ -1,0 +1,1 @@
+export { register, login, checkAuth } from './registerLogin.ts';

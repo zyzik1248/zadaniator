@@ -8,6 +8,8 @@ const Tasks = () => {
         project: '',
         content: ''
     });
+    const [message, setMessage] = useState('');
+    const [teams, setTeams] = useState(['TeamA', 'TeamB']); // Example predefined teams
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -19,10 +21,17 @@ const Tasks = () => {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
+        if (!teams.includes(formData.project)) {
+            setMessage('Team is not existing');
+            setTimeout(() => setMessage(''), 3000); // Clear message after 3 seconds
+            return;
+        }
         console.log('New Task:', formData);
         // Add logic to save the task
         setFormData({ title: '', project: '', content: '' });
         setShowForm(false);
+        setMessage('Task added successfully');
+        setTimeout(() => setMessage(''), 3000); // Clear message after 3 seconds
     };
 
     return (
@@ -37,7 +46,7 @@ const Tasks = () => {
             {showForm && (
                 <form className="tasks-form" onSubmit={handleFormSubmit}>
                     <div className="form-group">
-                        <label htmlFor="title">Tytuł:</label>
+                        <label htmlFor="title">Title:</label>
                         <input
                             type="text"
                             id="title"
@@ -48,7 +57,7 @@ const Tasks = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="project">Projekt:</label>
+                        <label htmlFor="project">Team:</label>
                         <input
                             type="text"
                             id="project"
@@ -59,7 +68,7 @@ const Tasks = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="content">Treść:</label>
+                        <label htmlFor="content">Contents:</label>
                         <textarea
                             id="content"
                             name="content"
@@ -71,6 +80,7 @@ const Tasks = () => {
                     <button className="form-submit-button" type="submit">Save Task</button>
                 </form>
             )}
+            {message && <p className="task-message">{message}</p>}
         </div>
     );
 };

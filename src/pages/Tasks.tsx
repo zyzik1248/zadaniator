@@ -30,7 +30,7 @@ const Tasks = () => {
         // Add logic to save the task
         setFormData({ title: '', project: '', content: '' });
         setShowForm(false);
-        setMessage('Task added successfully');
+        setMessage('Added successfully');
         setTimeout(() => setMessage(''), 3000); // Clear message after 3 seconds
     };
 

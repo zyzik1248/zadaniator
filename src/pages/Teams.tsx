@@ -12,11 +12,11 @@ const Teams = () => {
         e.preventDefault();
         if (teamName.trim() !== '') {
             if (teams.includes(teamName)) {
-                setMessage('The team already exists');
+                setMessage('Already exists');
                 setTimeout(() => setMessage(''), 3000); // Clear message after 3 seconds
             } else {
                 setTeams([...teams, teamName]);
-                setMessage('Team added successfully');
+                setMessage('Added successfully');
                 setTimeout(() => setMessage(''), 3000); // Clear message after 3 seconds
             }
             setTeamName('');
@@ -27,10 +27,10 @@ const Teams = () => {
     const handleJoinTeam = (e) => {
         e.preventDefault();
         if (teams.includes(joinTeamName)) {
-            setMessage(`Successfully joined the team: ${joinTeamName}`);
-            setTimeout(() => setMessage(''), 3000); // Clear message after 3 seconds
+            setMessage(`Welcome to: ${joinTeamName}`);
+            setTimeout(() => setMessage(''), 4000); // Clear message after 3 seconds
         } else {
-            setMessage('Team is not existing');
+            setMessage('Not existing');
             setTimeout(() => setMessage(''), 3000); // Clear message after 3 seconds
         }
         setJoinTeamName('');

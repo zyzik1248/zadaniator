@@ -1,9 +1,10 @@
 import React, {useContext} from 'react'
 import "./Teams.scss"
-import { decodeJWT } from '../../utils/index.ts'
+import { decodeJWT, randomStringBase64 } from '../../utils/index.ts'
 import { createTeam } from '../../api/teams.ts'
 import { Context } from '../context/ContextApi.ts'
 import { IData } from '../../types.ts'
+import { createProject } from '../../api/projects.ts'
 
 interface IProps {
     setOpenModal: ()=>void
@@ -22,9 +23,14 @@ const AddTeam:React.FC<IProps> = ({setOpenModal}) => {
               }
 
              const resp = await createTeam(formData)
+             const project = await createProject({
+                name: randomStringBase64(10),
+                description: "empty project",
+                team: resp.id
+             })
              const team: IData = {
                 ...resp,
-                projects: []
+                projects: [project]
              }
              
              data.push(team)

@@ -17,7 +17,7 @@ const Home = () => {
                 <CreateCard onClick={()=>setIsOpen(true)} title="add teams" />
             </div>
             <Modal isOpen={isOpen} setIsOpen={setIsOpen} title="add team">
-                <AddTeam />
+                <AddTeam setOpenModal={setIsOpen} />
             </Modal>
         </div>
     )

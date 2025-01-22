@@ -15,7 +15,7 @@ export interface ITask {
 
 export interface IProject{
     id?: number,
-    tasks: ITask[],
+    tasks?: ITask[],
     name: string
     description: string,
     created_at?: string,

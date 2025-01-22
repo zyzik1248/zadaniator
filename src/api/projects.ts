@@ -16,14 +16,21 @@ export const getProjects = async () => {
     }
   };
 
-    export const createProjects = async ({ name, created_at, description, updated_at, team, tasks }: IProject) => {  
+    export const createProject = async ({ name, created_at, description, updated_at, team, tasks }: IProject) => {  
       try {
-        const resp = await privateApi(`/api/projects`, {
+        const resp = await privateApi(`/api/projects/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ name, created_at, description, updated_at, team, tasks: [] })
+          body: JSON.stringify({
+             name, 
+             ...(created_at ? { created_at } : {}), 
+             description, 
+             ...(updated_at ? { updated_at } : {}), 
+             team, 
+             ...(tasks ? { tasks } : {})
+            })
         });
     
         return resp

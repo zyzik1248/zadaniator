@@ -36,7 +36,12 @@ const links = [
     }
 ]
 
-const Navs = () => {
+interface IProps {
+    open: boolean
+    setOpen: (open: boolean)=>void
+}
+
+const Navs:React.FC<IProps> = ({open, setOpen}) => {
     return (
         <nav className="nav-wrapper">
             <div className="navs">
@@ -45,6 +50,8 @@ const Navs = () => {
                         <Nav key={link.to} {...link} />
                     ))
                 }
+                <div className="divider"></div>
+                <Nav onClick={()=>setOpen(!open)} className={`${open ? "active" : ""}`} icon={clock} iconH={clockH} to="menu" isLink={false}/>
             </div>
             <div className="navs-settings">
                 <Nav to={"settings"} icon={settings}/>

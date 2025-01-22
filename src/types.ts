@@ -1,7 +1,3 @@
-export interface ITasks {
-    tasks: ITask[]
-}
-
 export interface ITask {
     id: number,
     title: string,
@@ -17,6 +13,16 @@ export interface ITask {
     project: number
 }
 
+export interface IProject{
+    id?: number,
+    tasks: ITask[],
+    name: string
+    description: string,
+    created_at?: string,
+    updated_at?: string,
+    team: number,
+}
+
 export interface IRegister {
     username: string,
     password: string,
@@ -26,4 +32,17 @@ export interface IRegister {
 export interface ILogin {
     password: string,
     username: string
+}
+
+export interface ITeam {
+    name: string,
+    members: number[]
+    id?: number
+}
+
+export interface IData {
+    name: string,
+    members: number[]
+    id?: number
+    projects: IProject[]
 }

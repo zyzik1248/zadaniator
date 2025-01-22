@@ -10,6 +10,7 @@ import Feedback from './pages/Feedback.tsx';
 import Settings from './pages/Settings.tsx';
 import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
+import NotFound from './pages/NotFound.tsx';
 
 const App = () => {
   return (
@@ -18,7 +19,7 @@ const App = () => {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
 
-        <Route element={<Layout />}>
+        <Route path=":teamId/:projectId" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="teams" element={<Teams />} />
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="settings" element={<Settings />} />
           <Route path="profile" element={<Profile />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

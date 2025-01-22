@@ -1,22 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./Home.scss"
-import Card from '../component/cards/Card.tsx';
 import TimeCard from '../component/cards/TimeCard.tsx';
-import ProgressCard from '../component/cards/ProgressCard.tsx';
-import Tasks from '../component/tasks/Tasks.tsx';
+import CreateCard from '../component/cards/CreateCard.tsx';
+import Modal from '../component/modals/Modal.tsx';
+import AddTeam from '../component/teams/AddTeam.tsx';
 
-const Home = () =>{
-    return(
+const Home = () => {
+    const [isOpen, setIsOpen] = useState(false)
+
+    return (
         <div className="home">
             <div className="first-row">
-                <TimeCard/>
-                <ProgressCard/>
+                <TimeCard />
             </div>
             <div className="second-row">
-                <Card title="Teams"></Card>
-                <Tasks/>
-                <Card title="Your feedback"></Card>
+                <CreateCard onClick={()=>setIsOpen(true)} title="add teams" />
             </div>
+            <Modal isOpen={isOpen} setIsOpen={setIsOpen} title="add team">
+                <AddTeam />
+            </Modal>
         </div>
     )
 }

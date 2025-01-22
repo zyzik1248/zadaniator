@@ -24,14 +24,25 @@
     }
 }
 
-.content{
+.content {
     height: 100vh;
     padding-top: 64px;
     display: flex;
 
-    .wrapper{
+    .wrapper {
         padding: 24px;
         overflow: auto;
         width: 100%;
+
+        .box{
+            max-width: 1400px;
+            margin: auto;
+            margin-top: 0;
+        }
+    }
+
+    .all-navs {
+        position: relative;
+        width: fit-content;
     }
 }

@@ -82,3 +82,31 @@
         margin-bottom: 32px;
     }
 }
+
+.create-card {
+    position: relative;
+    background-color: var(--black-v2);
+    width: 500px;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    overflow: auto;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+
+    .title {
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 21.79px;
+        margin-bottom: 16px;
+    }
+
+    .plus{
+        font-size: 50px;
+        margin-bottom: 4px;
+    }
+}

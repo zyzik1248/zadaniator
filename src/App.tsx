@@ -5,7 +5,7 @@ import Layout from './component/layout/Layout.tsx';
 import Home from './pages/Home.tsx';
 import Profile from './pages/Profile.tsx';
 import Tasks from './pages/Tasks.tsx';
-import Feedback from './pages/Feedback.tsx';
+
 import Settings from './pages/Settings.tsx';
 import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
@@ -22,7 +22,7 @@ const App = () => {
 
           <Route path="teams" element={<Teams />} />
           <Route path="tasks" element={<Tasks />} />
-          <Route path="project" element={<Feedback />} />
+          
           <Route path="settings" element={<Settings />} />
           <Route path="profile" element={<Profile />} />
         </Route>

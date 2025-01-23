@@ -15,7 +15,7 @@ const Home = () =>{
             <div className="second-row">
                 <Card title="Teams"></Card>
                 <Tasks/>
-                <Card title="Your feedback"></Card>
+                <Card title="Completed Tasks"></Card>
             </div>
         </div>
     )

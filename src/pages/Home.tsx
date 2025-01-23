@@ -1,25 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import "./Home.scss"
 import TimeCard from '../component/cards/TimeCard.tsx';
-import CreateCard from '../component/cards/CreateCard.tsx';
-import Modal from '../component/modals/Modal.tsx';
-import AddTeam from '../component/teams/AddTeam.tsx';
+import Card from '../component/cards/Card.tsx';
+import Tasks from '../component/tasks/Tasks.tsx';
+import Table from '../component/table/Table.tsx';
+import { Context } from '../component/context/ContextApi.ts';
+import { IData } from '../types.ts';
 
 const Home = () => {
-    const [isOpen, setIsOpen] = useState(false)
+    const {data} = useContext(Context)
 
     return (
         <div className="home">
-            <div className="first-row">
-                <TimeCard />
-            </div>
-            <div className="second-row">
-                <CreateCard onClick={()=>setIsOpen(true)} title="add teams" />
-            </div>
-            <Modal isOpen={isOpen} setIsOpen={setIsOpen} title="add team">
-                <AddTeam setOpenModal={setIsOpen} />
-            </Modal>
+        <div className="first-row">
+            <TimeCard/>
         </div>
+        <div className="second-row">
+            <Card title="Teams">
+                <Table
+                   body = {
+                    data.sort((a: IData, b: IData) => (a.id || 0) - (b.id || 0)).map(d=>({id: d.id, name: d.name}))
+                   } 
+                />
+            </Card>
+        </div>
+    </div>
     )
 }
 

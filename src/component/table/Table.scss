@@ -1,0 +1,55 @@
+.table-header{
+    display: grid;
+    // grid-template-columns: repeat(4, 1fr) 0.3fr;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 300;
+    text-transform: uppercase;
+    padding: 12px 20px;
+}
+
+.table-row{
+    display: grid;
+    // grid-template-columns: repeat(4, 1fr) 0.3fr;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 300;
+    padding: 12px 20px;
+
+    &:nth-child(even){
+        background-color: var(--black);
+    }
+
+    p{
+        width: 100%;
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 8px;
+    }
+
+    .editor{
+        display: flex;
+        gap: 4px;
+
+        .ed{
+            padding: 0;
+            border: 0;
+            margin: 0;
+            outline: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .pencil{
+            font-size: 20px;
+            color: var(--side);
+        }
+
+        .trash{
+            font-size: 20px;
+            color: #ff6961;
+        }
+    }
+}

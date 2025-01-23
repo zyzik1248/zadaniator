@@ -22,10 +22,11 @@ export const privateApi = async (url, options: FetchOptions = {}): Promise<any> 
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
   
-      const data = await response.json();
+      const responseText = await response.text();
+      const data = responseText ? JSON.parse(responseText) : null;
       return data;
     } catch (error) {
-      console.error('Błąd w privateApi:', error);
+      console.log(error);
       throw error; 
     }
   };

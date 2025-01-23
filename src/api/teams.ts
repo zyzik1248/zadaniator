@@ -31,3 +31,34 @@ export const getTeams = async () => {
         throw new Error(error)
     }
   };
+
+  export const updateTeam = async ({ name, members, id }: ITeam) => {  
+    try {
+      const resp = await privateApi(`/api/teams/${id}/`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, members })
+      });
+  
+      return resp
+    } catch (error) {
+        throw new Error(error)
+    }
+  };
+
+  export const deleteTeam = async (id : number) => {  
+    try {
+      const resp = await privateApi(`/api/teams/${id}/`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      return resp
+    } catch (error) {
+        throw new Error(error)
+    }
+  };

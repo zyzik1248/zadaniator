@@ -4,6 +4,9 @@ import { checkAuth, getProjects, getTeams } from '../../api/index.ts';
 import { IData, IProject, ITeam } from '../../types.ts';
 import { decodeJWT } from '../../utils/jwtFormatter.ts';
 import { Context } from '../context/ContextApi.ts';
+import { createTeam } from '../../api/teams.ts';
+import { randomStringBase64 } from '../../utils/random.ts';
+import { createProject } from '../../api/projects.ts';
 
 interface IProps {
     children: React.node
@@ -20,7 +23,6 @@ const PrivateRoute: React.FC<IProps> = ({ children }) => {
     const fetch = async () => {
         try {
             await checkAuth()
-            setIsAuth(true)
 
             const user = decodeJWT().user_id as number
             const resp = await getTeams()
@@ -34,23 +36,40 @@ const PrivateRoute: React.FC<IProps> = ({ children }) => {
                 }
             ))
 
-            setData(data)
+            if (data.length == 0) {
+                const resp = await createTeam({members: [user], name: randomStringBase64(10)})
+                const project = await createProject({
+                    name: randomStringBase64(10),
+                    description: "empty project",
+                    team: resp.id
+                })
 
-            const firstTeamWithProjects = data.find((data: IData) => data.projects && data.projects.length > 0);
-            const teamId = firstTeamWithProjects.id
-            const projectId = firstTeamWithProjects.projects[0].id
+                resp.projects = []
+                resp.projects.push(project)
 
-            if(params){
-                const team = data.find((team: IData) => team.id == params.teamId)
-                if(!team){
-                    navigate(`/${teamId}/${projectId}`)
-                    return
-                }
-                const project = team.projects.find((project: IProject) => project.id == params.projectId)
-                if(!project){
-                    navigate(`/${teamId}/${projectId}`)
+                setData(resp)
+
+            } else {
+                setData(data)
+
+                const firstTeamWithProjects = data.find((data: IData) => data.projects && data.projects.length > 0);
+                const teamId = firstTeamWithProjects.id
+                const projectId = firstTeamWithProjects.projects[0].id
+
+                if (params) {
+                    const team = data.find((team: IData) => team.id == params.teamId)
+                    if (!team) {
+                        navigate(`/${teamId}/${projectId}`)
+                        return
+                    }
+                    const project = team.projects.find((project: IProject) => project.id == params.projectId)
+                    if (!project) {
+                        navigate(`/${teamId}/${projectId}`)
+                    }
                 }
             }
+
+            setIsAuth(true)
         } catch (error) {
             console.log(error)
             navigate("/login")

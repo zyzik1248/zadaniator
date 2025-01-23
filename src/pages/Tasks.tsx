@@ -20,15 +20,6 @@ const Tasks = () => {
         setIsOpen(true)
     }
 
-    const getTasks = (progress) => {
-        return data
-            ? data.find(team => team.id === Number(params.teamId))
-                ?.projects.find(project => project.id === Number(params.projectId))
-                ?.tasks?.sort((a: IData, b: IData) => (a.id || 0) - (b.id || 0))
-                .filter(task => task.progress == progress) || []
-            : []
-    }
-
     const handleDelete = async (d: IData) =>{
         try{
             await deleteTask(d.id || 0)

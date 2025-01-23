@@ -6,9 +6,11 @@ interface IProps {
     body: Object[]
     handleEdit?: (data: object) => void
     handleDelete?: (data: object) => void
+    noDelete: number[]
 }
 
-const Table: React.FC<IProps> = ({ body, handleEdit, handleDelete }) => {
+const Table: React.FC<IProps> = ({ body, handleEdit, handleDelete, noDelete=[] }) => {
+
     return (
         <>
             {body.length ?
@@ -34,7 +36,7 @@ const Table: React.FC<IProps> = ({ body, handleEdit, handleDelete }) => {
                                 }
                                 <div className="editor">
                                     {
-                                        handleEdit &&
+                                        handleEdit && 
                                         <button className="ed" onClick={() => handleEdit(data)}>
                                             <span className="material-symbols-outlined pencil">
                                                 edit
@@ -42,7 +44,7 @@ const Table: React.FC<IProps> = ({ body, handleEdit, handleDelete }) => {
                                         </button>
                                     }
                                     {
-                                        handleDelete &&
+                                        handleDelete && !noDelete.find(el=>el == data.id) &&
                                         <button onClick={() => handleDelete(data)} className="ed">
                                             <span className="material-symbols-outlined trash">
                                                 delete

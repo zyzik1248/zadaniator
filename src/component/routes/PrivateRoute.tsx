@@ -72,7 +72,6 @@ const PrivateRoute: React.FC<IProps> = ({ children }) => {
             setIsAuth(true)
         } catch (error) {
             console.log(error)
-            navigate("/login")
         }
 
     }

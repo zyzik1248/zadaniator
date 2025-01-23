@@ -91,7 +91,7 @@ const Teams = () => {
     return (
         <div className="teams-wrapper">
             <div className="teams-container">
-                <h1 className="teams-title">{data.find(d => d.id == params.teamId)?.name} members</h1>
+                <h1 className="teams-title">members</h1>
                 <div className="divider"></div>
                 <div className="buttons-wrapper">
                     <button className={`teams-button join-button`} onClick={handleMember}>add member</button>
@@ -99,13 +99,13 @@ const Teams = () => {
                 <Table
                     body={
                         data.find(d => d.id == params.teamId)?.members
-                            .filter(member => member != decodeJWT().user_id as number)
                             .sort((a: number, b: number) => (a || 0) - (b || 0))
                             .map(member => ({
                                 id: member,
                                 name: users.find(user => user.id == member)?.username
                             }))
                     }
+                    noDelete={[decodeJWT().user_id as number]}
                     handleDelete={deleteMember}
                 />
             </div>
@@ -120,7 +120,6 @@ const Teams = () => {
                     handleEdit={handleEdit}
                     body={data
                         .sort((a: IData, b: IData) => (a.id || 0) - (b.id || 0))
-                        .filter((d: IData) => d.id != params.teamId)
                         .map((data: IData) => {
                             return {
                                 ...data,
@@ -134,6 +133,7 @@ const Teams = () => {
                             };
                         })
                     }
+                    noDelete={[(params as any).teamId as number]}
                 />
                 <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={typeFn == "add" ? "create team" : typeFn == "edit" ? "edit team" : "add member"}>
                     {

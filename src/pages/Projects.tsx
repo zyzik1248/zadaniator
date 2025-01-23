@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Feedback = () =>{
+const Projects = () =>{
     return(
         <div>
-            <h1>Feedback</h1>
+            <h1>Projects</h1>
         </div>
     )
 }
 
-export default Feedback
+export default Projects

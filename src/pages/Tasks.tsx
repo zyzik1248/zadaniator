@@ -1,86 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './Tasks.scss';
+import { Context } from '../component/context/ContextApi.ts';
+import Modal from '../component/modals/Modal.tsx';
+import AddTask from '../component/tasks/AddTask.tsx';
+import { useParams } from 'react-router';
+import { IData } from '../types.ts';
+import { deleteTask } from '../api/tasks.ts';
+import TasksBoxes from '../component/tasks/TasksBoxes.tsx';
 
 const Tasks = () => {
-    const [showForm, setShowForm] = useState(false);
-    const [formData, setFormData] = useState({
-        title: '',
-        project: '',
-        content: ''
-    });
-    const [message, setMessage] = useState('');
-    const [teams, setTeams] = useState(['TeamA', 'TeamB']); // Example predefined teams
+    const [isOpen, setIsOpen] = useState(false)
+    const [task, setTask] = useState(null);
+    const params = useParams()
+    const { data, setData } = useContext(Context)
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    };
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-        if (!teams.includes(formData.project)) {
-            setMessage('Team is not existing');
-            setTimeout(() => setMessage(''), 3000); // Clear message after 3 seconds
-            return;
+    const handleAdd = () => {
+        setTask(null)
+        setIsOpen(true)
+    }
+
+    const getTasks = (progress) => {
+        return data
+            ? data.find(team => team.id === Number(params.teamId))
+                ?.projects.find(project => project.id === Number(params.projectId))
+                ?.tasks?.sort((a: IData, b: IData) => (a.id || 0) - (b.id || 0))
+                .filter(task => task.progress == progress) || []
+            : []
+    }
+
+    const handleDelete = async (d: IData) =>{
+        try{
+            await deleteTask(d.id || 0)
+
+            const team = data.find(t => t.id == params.teamId);
+
+            if (team) {
+              const project = team.projects.find(p => p.id == params.projectId);
+          
+              if (project) {
+                project.tasks = project.tasks.filter(task => task.id !== d.id);
+                
+                setData([...data]);
+              }
+            }
+
+        }catch(error){
+            console.log(error)
         }
-        console.log('New Task:', formData);
-        // Add logic to save the task
-        setFormData({ title: '', project: '', content: '' });
-        setShowForm(false);
-        setMessage('Added successfully');
-        setTimeout(() => setMessage(''), 3000); // Clear message after 3 seconds
-    };
+    }
+
+    const handleEdit = (d: IData) =>{
+        setTask(d)
+        setIsOpen(true)
+    }
 
     return (
-        <div className="tasks-container">
-            <h1 className="tasks-title">Tasks</h1>
-            <button 
-                className={showForm ? "tasks-button cancel-button" : "tasks-button add-button"} 
-                onClick={() => setShowForm(!showForm)}
-            >
-                {showForm ? 'Cancel' : 'Add Task'}
-            </button>
-            {showForm && (
-                <form className="tasks-form" onSubmit={handleFormSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="title">Title:</label>
-                        <input
-                            type="text"
-                            id="title"
-                            name="title"
-                            value={formData.title}
-                            onChange={handleInputChange}
-                            className="text-input"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="project">Team:</label>
-                        <input
-                            type="text"
-                            id="project"
-                            name="project"
-                            value={formData.project}
-                            onChange={handleInputChange}
-                            className="text-input"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="content">Contents:</label>
-                        <textarea
-                            id="content"
-                            name="content"
-                            value={formData.content}
-                            onChange={handleInputChange}
-                            className="text-input"
-                        ></textarea>
-                    </div>
-                    <button className="form-submit-button" type="submit">Save Task</button>
-                </form>
-            )}
-            {message && <p className="task-message">{message}</p>}
+        <div className="tasks-wrapper">
+            <div className="tasks-container">
+                <h1 className="tasks-title">Tasks</h1>
+                <div className="divider"></div>
+                <div className="buttons-wrapper">
+                    <button className={`tasks-button join-button`} onClick={handleAdd}>add task</button>
+                </div>
+                <TasksBoxes handleDelete={handleDelete} handleEdit={handleEdit}/>
+            </div>
+            <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={!task ? "create task" : "edit task"}>
+                <AddTask setOpenModal={setIsOpen} {...task} />
+            </Modal>
         </div>
     );
 };

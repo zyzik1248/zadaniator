@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import './Navs.scss';
 import teamsH from "./../../assets/Teams-h.png"
-import clockH from "./../../assets/Teams-h.png"
-import clock from "./../../assets/Teams.png"
+import fileH from "./../../assets/file-h.png"
+import file from "./../../assets/file.png"
 import { IData } from '../../types';
 import { Context } from '../context/ContextApi.ts';
 import { NavLink } from 'react-router';
@@ -38,8 +38,8 @@ const SideMenu: React.FC<IProps> = ({ open }) => {
                                         `project-nav ${isActive ? "active" : ""}`
                                     } key={project.id}>
                                     <div className="img-wrapper">
-                                        <img className="im" src={clockH} />
-                                        <img className="im-h" src={clock} />
+                                        <img className="im" src={fileH} />
+                                        <img className="im-h" src={file} />
                                     </div>
                                     <p>{project.name}</p>
                                 </NavLink>

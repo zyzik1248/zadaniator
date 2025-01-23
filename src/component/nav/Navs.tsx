@@ -6,6 +6,10 @@ import settings from "./../../assets/Setting 2.png"
 import user from "./../../assets/User.png"
 import teamsH from "./../../assets/Teams-h.png"
 import taskH from "./../../assets/Task-h.png"
+import menuH from "./../../assets/menu-h.png"
+import menu from "./../../assets/menu.png"
+import fileH from "./../../assets/file-h.png"
+import file from "./../../assets/file.png"
 import Nav from './Nav.tsx';
 
 
@@ -14,6 +18,11 @@ const links = [
         icon: teams,
         iconH: teamsH,
         to: "teams"
+    },
+    {
+        icon: file,
+        iconH: fileH,
+        to: "projects"
     },
     {
         icon: tasks,
@@ -38,7 +47,7 @@ const Navs:React.FC<IProps> = ({open, setOpen}) => {
                     ))
                 }
                 <div className="divider"></div>
-                <Nav onClick={()=>setOpen(!open)} className={`${open ? "active" : ""}`} icon={teams} iconH={teamsH} to="menu" isLink={false}/>
+                <Nav onClick={()=>setOpen(!open)} className={`menu ${open ? "active" : ""}`} icon={menu} iconH={menuH} isLink={false}/>
             </div>
             <div className="navs-settings">
                 <Nav to={"settings"} icon={settings}/>

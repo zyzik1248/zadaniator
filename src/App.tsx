@@ -10,11 +10,13 @@ import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 import NotFound from './pages/NotFound.tsx';
 import Projects from './pages/Projects.tsx';
+import WelcomePage from './pages/WelcomePage.tsx'; 
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<WelcomePage />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
 

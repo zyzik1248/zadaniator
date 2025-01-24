@@ -1,0 +1,31 @@
+.comment-item {
+    padding: 10px;
+    border: 1px solid var(--white);
+    border-radius: 5px;
+    background-color: var(--black);
+    color: var(--white);
+    margin-bottom: 10px;
+
+    p {
+        margin: 5px 0;
+    }
+
+    .delete-button {
+        padding: 5px 10px;
+        background-color: var(--danger);
+        color: var(--white);
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 14px;
+
+        &:hover {
+            background-color: #e63946;
+        }
+
+        &:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+    }
+}

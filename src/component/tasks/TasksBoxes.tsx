@@ -25,8 +25,6 @@ const TasksBoxes: React.FC<IProps> = ({ handleEdit, handleDelete, column }) => {
         );
     };
 
-    console.log(getTasks(3))
-
     return (
         <div className="tasks-container">
             <div className={`tasks-row tasks ${column ? "column" : ""}`}>

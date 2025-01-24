@@ -10,6 +10,8 @@ export interface ITask {
     created_by: number,
     assigned_to?: number,
     tester?: number,
+    approved_by_tester: boolean,
+    priority: number,
     project: number
 }
 

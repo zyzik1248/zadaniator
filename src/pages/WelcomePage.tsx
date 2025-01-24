@@ -1,12 +1,12 @@
 import React from 'react';
 import './WelcomePage.scss';
-// import titleImage from '../../assets/title-page.png'; // jeżeli potrzebujesz wczytać plik PNG/JPG
+const graphic = require('../assets/graphic.png');
 
-// Jeśli komponent nie przyjmuje żadnych propsów, typ będzie prosty:
+
 const WelcomePage: React.FC = () => {
   return (
     <div className="welcome-page">
-      {/* Sekcja fal w tle */}
+      {/* Waves in the background */}
       <div className="waves-container">
         <svg
           className="wave wave1"
@@ -43,13 +43,16 @@ const WelcomePage: React.FC = () => {
         </svg>
       </div>
 
-      {/* Główne okno powitania */}
+      {/* Welcome Box */}
       <div className="welcome-box">
         <h1>
           Witaj <span>XYZ</span>!
         </h1>
         <p>Zaczekaj aż administrator doda cię do projektu</p>
       </div>
+
+      {/* Graphic at the bottom */}
+      <img src={graphic} alt="Graphic" className="bottom-graphic" />
     </div>
   );
 };

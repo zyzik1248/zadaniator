@@ -21,7 +21,7 @@ const TasksBoxes: React.FC<IProps> = ({ handleEdit, handleDelete, column }) => {
                 ?.find((team) => team.id === Number(params.teamId))
                 ?.projects.find((project) => project.id === Number(params.projectId))
                 ?.tasks?.sort((a: IData, b: IData) => (a.id || 0) - (b.id || 0))
-                .filter((task) => task.progress === progress) || []
+                .filter((task) => Number(task.progress) === progress) || []
         );
     };
 

@@ -41,15 +41,13 @@ const AddTask: React.FC<IProps> = ({ setOpenModal, task }) => {
                 priority: parseInt(ref.current["priority"].value, 10) || 1
             }
 
-            if (!task.id) {
+            if (!task?.id) {
                 const resp = await createTask(formData)
-
                 const team = data.find(t => t.id == params.teamId)
                 const project = team.projects.find(p => p.id == params.projectId)
                 project.tasks.push(resp)
                 setData(data.map((d) => (d.id == team.id ? { ...d, projects: team.projects } : { ...d })))
             } else {
-
                 formData.id = task.id
                 console.log(formData)
                 await updateTask({ ...formData })

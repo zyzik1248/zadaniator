@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./Tasks.scss";
 import { ITask } from '../../types';
 import TaskModal from './TaskModal.tsx';
+import { getTaskComments } from '../../api/tasks.ts';
 
 interface IProps {
     task: ITask;
@@ -10,6 +11,21 @@ interface IProps {
 }
 
 const SingleTask: React.FC<IProps> = ({ handleEdit, handleDelete, task }) => {
+    const [comments, setComments] = useState([])
+
+    const fetch = async () => {
+        try{
+            const resp = await getTaskComments(task.id!);
+            setComments([...resp])
+        } catch (error){
+            console.log(error)
+        }
+    };
+
+    useEffect(()=>{
+        fetch()
+    }, [])
+
     const [isModalOpen, setModalOpen] = useState(false);
 
     const getPriorityClass = (priority: number) => {
@@ -61,6 +77,9 @@ const SingleTask: React.FC<IProps> = ({ handleEdit, handleDelete, task }) => {
                 {task.priority === 4 && <span className="critical-icon">⚠️</span>}
                 <h3 className="title">{task.title}</h3>
                 <p className="description">{task.description}</p>
+                <div className="comments-btn-wtapper">
+                    <button className="comments-btn" disabled={!comments.length} type="button">({comments.length})</button>
+                </div>
             </div>
 
             {isModalOpen && (
@@ -71,7 +90,10 @@ const SingleTask: React.FC<IProps> = ({ handleEdit, handleDelete, task }) => {
                         console.log(`Task ${id} approval status: ${approved}`);
                     }}
                     onAddComment={(id, comment) => {
-                        console.log(`Task ${id} new comment: ${comment}`);
+                    }}
+                    onSubmit ={()=>{
+                        fetch()
+                        console.log("jijijij")
                     }}
                 />
             )}

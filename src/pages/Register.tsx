@@ -3,6 +3,7 @@ import './Register.scss'
 import { register } from '../api/index.ts';
 import logo from "../assets/logo-3.png";
 import { Link, useNavigate } from 'react-router';
+import logo1 from "../assets/logo-biale.png";
 
 const Register = () => {
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
@@ -31,7 +32,7 @@ const Register = () => {
 
   return (
     <div className="register-page">
-      <h1><img className="logo-3" src={logo} alt="Logo-3" /></h1>
+      <h1><img className="logo-biale" src={logo1} alt="Logo-biale" /><img className="logo-3" src={logo} alt="Logo-3" /></h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

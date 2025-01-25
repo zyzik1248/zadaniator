@@ -10,7 +10,17 @@
   
     h1 {
       padding: 16px;
+      .logo-biale {
+        width: 40px; // Dopasuj rozmiar do potrzeb
+        height: auto; // Zachowanie proporcji
+        filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.5)); // Dodaje cień
+        transition: transform 0.3s ease, filter 0.3s ease;
     
+        &:hover {
+          transform: scale(1.05); // Delikatne powiększenie przy najechaniu
+          filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.7));
+        }
+      }
       .logo-3 {
         width: 300px; // Dopasuj rozmiar do potrzeb
         height: auto; // Zachowanie proporcji

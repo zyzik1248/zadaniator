@@ -166,10 +166,12 @@ const AdminPage = () => {
     return (
         <div className="admin-page">
             <div className="header">
-                <h1>Panel Administratora</h1>
-                <button onClick={handleBackToMain} className="back-button">
-                    Powrót do strony głównej
-                </button>
+                <div className="title-section">
+                    <h1>Panel Administratora</h1>
+                    <button onClick={handleBackToMain} className="back-button">
+                        Powrót do strony głównej
+                    </button>
+                </div>
             </div>
             
             {!selectedUser ? (

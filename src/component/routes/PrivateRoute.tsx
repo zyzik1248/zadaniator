@@ -7,6 +7,7 @@ import { Context } from '../context/ContextApi.ts';
 import { createTeam } from '../../api/teams.ts';
 import { randomStringBase64 } from '../../utils/random.ts';
 import { createProject } from '../../api/projects.ts';
+import Loader from '../../components/Loader.tsx';
 
 interface IProps {
     children: React.node
@@ -15,9 +16,9 @@ interface IProps {
 const PrivateRoute: React.FC<IProps> = ({ children }) => {
     const [isAuth, setIsAuth] = useState(false)
     const [data, setData] = useState<IData[]>([])
+    const [loading, setLoading] = useState(true)
 
     const params = useParams();
-
     const navigate = useNavigate()
 
     const fetch = async () => {
@@ -48,7 +49,6 @@ const PrivateRoute: React.FC<IProps> = ({ children }) => {
                 resp.projects.push(project)
 
                 setData(resp)
-
             } else {
                 setData(data)
 
@@ -72,21 +72,25 @@ const PrivateRoute: React.FC<IProps> = ({ children }) => {
             setIsAuth(true)
         } catch (error) {
             console.log(error)
+            navigate('/login')
+        } finally {
+            setLoading(false)
         }
-
     }
 
     useEffect(() => {
         fetch()
     }, [])
 
+    if (loading) {
+        return <Loader text="Wczytywanie danych..." />
+    }
+
     return (
         <>
             {isAuth &&
                 <Context.Provider value={{ data: data, setData: setData }}>
-                    {
-                        children
-                    }
+                    {children}
                 </Context.Provider>
             }
         </>

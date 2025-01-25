@@ -11,6 +11,7 @@ import fileH from "./../../assets/file-h.png"
 import file from "./../../assets/file.png"
 import Nav from './Nav.tsx';
 import { isUserAdmin } from '../../utils/jwtFormatter.ts';
+import { useNavigate } from 'react-router';
 
 
 const links = [
@@ -39,6 +40,15 @@ interface IProps {
 
 const Navs:React.FC<IProps> = ({open, setOpen}) => {
     const isAdmin = isUserAdmin();
+
+    const navigate = useNavigate();
+
+    const logout = () =>{
+        if (localStorage.getItem('authToken')) {
+            localStorage.removeItem('authToken');
+            navigate(`/login`)
+        }
+    }
     
     return (
         <nav className="nav-wrapper">
@@ -55,7 +65,7 @@ const Navs:React.FC<IProps> = ({open, setOpen}) => {
                 )}
             </div>
             <div className="navs-settings">
-                <Nav to={"/Login"} icon={user} className="user"/>
+                <Nav isLink={false} onClick={logout} icon={user}/>
             </div>
         </nav>
     )

@@ -9,9 +9,10 @@ interface IProps {
     task: ITask;
     onClose: () => void;
     onApprove: (id: number, approved: boolean) => void;
+    onSubmit?: ()=>void
 }
 
-const TaskModal: React.FC<IProps> = ({ task, onClose, onApprove }) => {
+const TaskModal: React.FC<IProps> = ({ task, onClose, onApprove, onSubmit }) => {
     const [comments, setComments] = useState<ITaskComment[]>([]);
     const [newComment, setNewComment] = useState('');
     const [loading, setLoading] = useState(false);
@@ -59,6 +60,7 @@ const TaskModal: React.FC<IProps> = ({ task, onClose, onApprove }) => {
             // Pobierz zaktualizowaną listę komentarzy
             const updatedComments = await getTaskComments(task.id!);
             setComments(updatedComments); // Zaktualizuj stan komentarzy
+            onSubmit && onSubmit()
         } catch (error) {
             console.error('Error adding comment:', error);
         } finally {

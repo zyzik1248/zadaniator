@@ -132,14 +132,10 @@
     flex-direction: column;
     gap: 12px;
 
-    max-height: 90vh; // Ograniczenie maksymalnej wysokości modala
-    overflow-y: auto; // Włączenie przewijania, jeśli modal przekracza wysokość strony
-
-    label {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--white);
-        margin-bottom: 4px;
+    .button-wrapper{
+        display: flex;
+        justify-content: end;
+        margin-top: 32px;
     }
 
     select {
@@ -162,56 +158,6 @@
 
         &::placeholder {
             color: var(--white);
-        }
-    }
-
-    input,
-    textarea {
-        resize: none;
-        width: 100%;
-        padding: 12px 16px;
-        font-size: 16px;
-        color: var(--white);
-        background-color: var(--black-v2);
-        border: 1px solid var(--white);
-        border-radius: 5px;
-        outline: none;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-
-        &:focus {
-            border-color: var(--side);
-            box-shadow: 0px 0px 4px var(--side);
-        }
-
-        &::placeholder {
-            color: var(--white);
-        }
-    }
-
-    textarea {
-        overflow: hidden;
-        height: auto;
-        min-height: 100px;
-    }
-
-    button {
-        width: 100%;
-        padding: 12px 16px;
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--white);
-        background-color: var(--side);
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-
-        &:hover {
-            background-color: #3ba78d;
-        }
-
-        &:active {
-            transform: scale(0.98);
         }
     }
 }

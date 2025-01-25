@@ -11,6 +11,7 @@ $breakpoints: (
 
 @mixin media-query($size) {
   $breakpoint: map-get($breakpoints, $size);
+
   @if $breakpoint {
     @media (min-width: $breakpoint) {
       @content;
@@ -23,19 +24,25 @@ body {
   background-color: var(--black);
 }
 
-*{
+* {
   color: #ffffff;
   box-sizing: border-box;
   font-family: Noto Sans Hebrew;
 }
 
-p, h1, h2, h3, h4, h5, h6{
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
 }
 
 *::-webkit-scrollbar {
-  width: 4px; 
-  height: 4px;  
+  width: 4px;
+  height: 4px;
 }
 
 *::-webkit-scrollbar-track {
@@ -44,14 +51,99 @@ p, h1, h2, h3, h4, h5, h6{
 
 
 * {
-  scrollbar-width: thin; 
-  scrollbar-color:  var(--black-v2) var(--black);
+  scrollbar-width: thin;
+  scrollbar-color: var(--black-v2) var(--black);
 }
 
 *::-webkit-scrollbar-thumb {
   background-color: var(--black);
-  border-radius: 5px;        
+  border-radius: 5px;
 }
 
+.form-input {
+  width: 100%;
+  padding: 16px;
+  background-color: var(--black);
+  box-shadow: 0px 4px 4px 0px #00000040 inset;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.79px;
+  border: none;
+  resize: none;
+  margin-bottom: 24px;
+
+  &::placeholder,
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder,
+  &::-ms-input-placeholder {
+    color: #898989;
+  }
+}
+
+.form-label {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 21.79px;
+}
+
+.form-button {
+  float: right;
+  width: fit-content;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.79px;
+  cursor: pointer;
+
+}
+
+.radio-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+
+  @include media-query(desktop) {
+    flex-wrap: nowrap;
+  }
+
+  .radio-input {
+    width: 100%;
+    min-width: 93px;
+    max-width: 110px;
+    position: relative;
+    height: 33px;
+
+    .form-input {
+      margin: 0;
+      box-shadow: 0px 4px 4px 0px #00000040;
+      position: relative;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:checked {
+        background-color: var(--side);
+      }
+    }
+
+    .form-label {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 21.79px;
+      text-align: center;
+      pointer-events: none;
+    }
+  }
 
 
+}

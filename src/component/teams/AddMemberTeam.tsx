@@ -1,10 +1,8 @@
 import React, { useContext, useRef, useEffect } from 'react'
 import "./Teams.scss"
-import { decodeJWT, randomStringBase64 } from '../../utils/index.ts'
-import { createTeam, updateTeam } from '../../api/teams.ts'
+import { updateTeam } from '../../api/teams.ts'
 import { Context } from '../context/ContextApi.ts'
 import { IData, IProject, ITeam, IUser } from '../../types.ts'
-import { createProject } from '../../api/projects.ts'
 
 interface IProps {
     setOpenModal: () => void
@@ -59,9 +57,12 @@ const AddMemberTeam: React.FC<IProps> = ({ setOpenModal, users = [], projects = 
     }
 
     return (
-        <form ref={ref} className="edit-teams" onSubmit={handleSubmit}>
-            <input required placeholder="name" name="name" defaultValue=""></input>
-            <button type="submit">add</button>
+        <form ref={ref} className="add-teams" onSubmit={handleSubmit}>
+            <label htmlFor="name" className="form-label" >Name</label>
+            <input className="form-input" id="name" required placeholder="write name ..." name="name" defaultValue=""></input>
+            <div className="button-wrapper">
+                <button className="form-button" type="submit">Done</button>
+            </div>
         </form>
     )
 }

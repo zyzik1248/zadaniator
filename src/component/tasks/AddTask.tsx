@@ -8,16 +8,10 @@ import { createTask, updateTask } from '../../api/tasks.ts'
 
 interface IProps {
     setOpenModal: () => void
-    title?: string
-    id?: string
-    description?: string
-    story_points?: number
-    progress: number
-    created_by: number
-    priority?: number
+    task: ITask | null
 }
 
-const AddTask: React.FC<IProps> = ({ setOpenModal, title, description, story_points, id, progress, created_by, priority }) => {
+const AddTask: React.FC<IProps> = ({ setOpenModal, task }) => {
     const { data, setData } = useContext(Context)
 
     const ref = useRef(null)
@@ -25,13 +19,13 @@ const AddTask: React.FC<IProps> = ({ setOpenModal, title, description, story_poi
 
     useEffect(() => {
         if (ref.current) {
-            ref.current["title"].value = title || ""
-            ref.current["description"].value = description || ""
-            ref.current["story_points"].value = story_points || 0
-            ref.current["progress"].value = progress || 0
-            ref.current["priority"].value = priority || 1
+            ref.current["title"].value = task?.title || ""
+            ref.current["description"].value = task?.description || ""
+            // ref.current["story_points"].value = story_points || 0
+            ref.current["progress"].value = task?.progress || 0
+            ref.current["priority"].value = task?.priority || 1
         }
-    }, [title, description, story_points, id, priority])
+    }, [task])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -42,12 +36,12 @@ const AddTask: React.FC<IProps> = ({ setOpenModal, title, description, story_poi
                 project: (params as any).projectId || 0,
                 description: e.target["description"].value,
                 progress: ref.current["progress"].value || 0,
-                story_points: e.target["story_points"].value,
-                created_by: created_by || decodeJWT().user_id as number,
+                story_points: 0,
+                created_by: task?.created_by || decodeJWT().user_id as number,
                 priority: parseInt(ref.current["priority"].value, 10) || 1
             }
 
-            if (!id) {
+            if (!task.id) {
                 const resp = await createTask(formData)
 
                 const team = data.find(t => t.id == params.teamId)
@@ -56,7 +50,8 @@ const AddTask: React.FC<IProps> = ({ setOpenModal, title, description, story_poi
                 setData(data.map((d) => (d.id == team.id ? { ...d, projects: team.projects } : { ...d })))
             } else {
 
-                formData.id = id
+                formData.id = task.id
+                console.log(formData)
                 await updateTask({ ...formData })
 
                 setData(
@@ -70,8 +65,8 @@ const AddTask: React.FC<IProps> = ({ setOpenModal, title, description, story_poi
 
                                 return {
                                     ...project,
-                                    tasks: project.tasks.map(task => {
-                                        if (task.id !== id) return task
+                                    tasks: project.tasks.map(t => {
+                                        if (t.id !== task.id) return t
 
                                         return {
                                             ...formData
@@ -93,40 +88,53 @@ const AddTask: React.FC<IProps> = ({ setOpenModal, title, description, story_poi
     return (
         <form ref={ref} className="add-tasks" onSubmit={handleSubmit}>
             <label htmlFor="title" className="form-label">Task Title</label>
-            <input required placeholder="Enter task title" name="title" defaultValue="" id="title" className="form-input"></input>
-            
+            <input required placeholder="write title ..." name="title" defaultValue="" id="title" className="form-input"></input>
+
             <label htmlFor="description" className="form-label">Description</label>
-            <textarea required name="description" rows="4" cols="50" placeholder="Enter task description..." id="description" className="form-input"></textarea>
-            
-            <label htmlFor="story_points" className="form-label">Story Points</label>
-            <input required min="0" type="number" placeholder="Enter story points" name="story_points" defaultValue="" id="story_points" className="form-input"></input>
-            
-            <label htmlFor="progress" className="form-label">Progress</label>
-            <select
-                className="task-progress form-input"
-                name="progress"
-                id="progress"
-            >
-                <option value={0}>To Do</option>
-                <option value={1}>In Progress</option>
-                <option value={2}>Done</option>
-                <option value={3}>Review</option>
-            </select>
-            
-            <label htmlFor="priority" className="form-label">Priority</label>
-            <select
-                className="task-priority form-input"
-                name="priority"
-                id="priority"
-                defaultValue={priority || 1}
-            >
-                <option value={1}>Low</option>
-                <option value={2}>Medium</option>
-                <option value={3}>High</option>
-                <option value={4}>Critical</option>
-            </select>
-            
-            <button type="submit" className="form-button">{id ? "Edit Task" : "Add Task"}</button>
+            <textarea required name="description" rows="4" cols="50" placeholder="Write description..." id="description" className="form-input"></textarea>
+
+            <label className="form-label">Progress</label>
+            <div className="radio-form">
+                <div className="radio-input">
+                    <input id="to-do" type="radio" name="progress" className="form-input" value="0"></input>
+                    <label htmlFor="to-do" className="form-label">To do</label>
+                </div>
+                <div className="radio-input">
+                    <input id="in-progress" type="radio" name="progress" className="form-input" value="1"></input>
+                    <label htmlFor="in-progress" className="form-label">progress</label>
+                </div>
+                <div className="radio-input">
+                    <input id="in-progress" type="radio" name="progress" className="form-input" value="2"></input>
+                    <label htmlFor="done" className="form-label">Done</label>
+                </div>
+                <div className="radio-input">
+                    <input id="in-progress" type="radio" name="progress" className="form-input" value="3"></input>
+                    <label htmlFor="review" className="form-label">Review</label>
+                </div>
+            </div>
+
+            <label htmlFor="progress" className="form-label">Priority</label>
+            <div className="radio-form">
+                <div className="radio-input">
+                    <input id="low" type="radio" name="priority" className="form-input" value="0"></input>
+                    <label htmlFor="low" className="form-label">Low</label>
+                </div>
+                <div className="radio-input">
+                    <input id="Medium" type="radio" name="priority" className="form-input" value="1"></input>
+                    <label htmlFor="Medium" className="form-label">Medium</label>
+                </div>
+                <div className="radio-input">
+                    <input id="High" type="radio" name="priority" className="form-input" value="2"></input>
+                    <label htmlFor="High" className="form-label">High</label>
+                </div>
+                <div className="radio-input">
+                    <input id="Critical" type="radio" name="priority" className="form-input" value="3"></input>
+                    <label htmlFor="Critical" className="form-label">Critical</label>
+                </div>
+            </div>
+            <div className="button-wrapper">
+                <button type="submit" className="form-button">Done</button>
+            </div>
         </form>
     )
 }

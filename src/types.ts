@@ -3,14 +3,14 @@ export interface ITask {
     title: string;
     description: string;
     progress: number;
-    story_points: number;
+    story_points?: number;
     completed?: boolean;
     created_at?: string;
     updated_at?: number;
     created_by: number;
     assigned_to?: number;
     tester?: number;
-    approved_by_tester: boolean;
+    approved_by_tester?: boolean;
     priority: number;
     project: number;
 }

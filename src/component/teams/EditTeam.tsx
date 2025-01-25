@@ -1,31 +1,26 @@
 import React, { useContext, useRef, useEffect } from 'react'
 import "./Teams.scss"
-import { decodeJWT, randomStringBase64 } from '../../utils/index.ts'
-import { createTeam, updateTeam } from '../../api/teams.ts'
+import { updateTeam } from '../../api/teams.ts'
 import { Context } from '../context/ContextApi.ts'
-import { IData, IProject, ITeam, IUser } from '../../types.ts'
-import { createProject } from '../../api/projects.ts'
+import { IData, ITeam } from '../../types.ts'
 
 interface IProps {
     setOpenModal: () => void
-    users: IUser[],
-    projects: IProject[]
-    name: string
-    id: string
-    members: number[]
+    team: ITeam | null
 }
 
-const EditTeam: React.FC<IProps> = ({ setOpenModal, users = [], projects = [], name, id, members }) => {
+const EditTeam: React.FC<IProps> = ({ setOpenModal, team = { projects: null, name: null, id: null, members: null} }) => {
     const { data, setData } = useContext(Context)
+    const {name, id} = team
 
     const ref = useRef(null)
 
     useEffect(
         () => {
             if (ref.current) {
-                ref.current["name"].value = name
+                ref.current["name"].value = name || ""
             }
-        }, [users, projects, name, id]
+        }, [team]
     )
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -33,8 +28,8 @@ const EditTeam: React.FC<IProps> = ({ setOpenModal, users = [], projects = [], n
 
         try {
             const formData = {
-                name: e.target["name"].value,
-                id, 
+                name: e.target["name"].value || "",
+                id: id || 1, 
                 members: data.find(d=>d.id == id).members
             } as ITeam
 
@@ -51,9 +46,12 @@ const EditTeam: React.FC<IProps> = ({ setOpenModal, users = [], projects = [], n
     }
 
     return (
-        <form ref={ref} className="edit-teams" onSubmit={handleSubmit}>
-            <input required placeholder="name" name="name" defaultValue=""></input>
-            <button type="submit">edit</button>
+        <form ref={ref} className="add-teams" onSubmit={handleSubmit}>
+            <label htmlFor="name" className="form-label" >Name</label>
+            <input className="form-input" id="name" required placeholder="write name ..." name="name" defaultValue=""></input>
+            <div className="button-wrapper">
+                <button className="form-button" type="submit">Done</button>
+            </div>
         </form>
     )
 }

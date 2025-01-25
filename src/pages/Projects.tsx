@@ -17,10 +17,11 @@ const Teams = () => {
 
     const handleAdd = () => {
         setIsOpen(true)
+        setProject(undefined)
     }
 
     const handleEdit = (d: IData) => {
-        setProject(d)
+        setProject({...d})
         setIsOpen(true)
     }
 
@@ -62,8 +63,8 @@ const Teams = () => {
                     }
                     noDelete={[params.projectId]}
                 />
-                <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={project ? "edit project" : "create project"}>
-                    <AddProject setOpenModal={setIsOpen} {...project} />
+                <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={project ? "edit project" : "add project"}>
+                    <AddProject setOpenModal={setIsOpen} project={project} />
                 </Modal>
             </div>
         </div>

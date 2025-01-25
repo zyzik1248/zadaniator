@@ -37,7 +37,7 @@ const Teams = () => {
     const handleMember = () => {
         setIsOpen(true)
         setTypeFn("add-member")
-        setTeam(data.find(d => d.id == params.teamId))
+        setTeam({...data.find(d => d.id == params.teamId)})
     }
 
     const handleAdd = () => {
@@ -46,7 +46,7 @@ const Teams = () => {
     }
 
     const handleEdit = (d: IData) => {
-        setTeam(d)
+        setTeam({...d})
         setIsOpen(true)
         setTypeFn("edit")
     }
@@ -140,7 +140,7 @@ const Teams = () => {
                         typeFn == "add" ?
                             <AddTeam setOpenModal={setIsOpen} /> :
                             typeFn == "edit" ?
-                                <EditTeam setOpenModal={setIsOpen} {...team} /> :
+                                <EditTeam setOpenModal={setIsOpen} team = {team} /> :
                                 <AddMemberTeam setOpenModal={setIsOpen} {...team} users={users} />
                     }
                 </Modal>

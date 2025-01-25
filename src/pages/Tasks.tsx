@@ -42,7 +42,7 @@ const Tasks = () => {
     }
 
     const handleEdit = (d: IData) =>{
-        setTask(d)
+        setTask({...d})
         setIsOpen(true)
     }
 
@@ -57,7 +57,7 @@ const Tasks = () => {
                 <TasksBoxes handleDelete={handleDelete} handleEdit={handleEdit}/>
             </div>
             <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={!task ? "create task" : "edit task"}>
-                <AddTask setOpenModal={setIsOpen} {...task} />
+                <AddTask setOpenModal={setIsOpen} task={task} />
             </Modal>
         </div>
     );

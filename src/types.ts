@@ -1,18 +1,27 @@
 export interface ITask {
+    id?: number;
+    title: string;
+    description: string;
+    progress: number;
+    story_points: number;
+    completed?: boolean;
+    created_at?: string;
+    updated_at?: number;
+    created_by: number;
+    assigned_to?: number;
+    tester?: number;
+    approved_by_tester: boolean;
+    priority: number;
+    project: number;
+}
+
+export interface ITaskComment {
     id?: number,
-    title: string,
-    description: string,
-    progress: number,
-    story_points: number,
-    completed?: boolean,
-    created_at?: string,
-    updated_at?: number,
-    created_by: number,
-    assigned_to?: number,
-    tester?: number,
-    approved_by_tester: boolean,
-    priority: number,
-    project: number
+    content: string;
+    task: number;
+    author: number;
+    created_at?: string;
+    updated_at?: number;
 }
 
 export interface IProject{

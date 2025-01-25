@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Teams from './pages/Teams.tsx';
 import Layout from './component/layout/Layout.tsx';
 import Home from './pages/Home.tsx';
@@ -10,6 +10,8 @@ import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 import NotFound from './pages/NotFound.tsx';
 import Projects from './pages/Projects.tsx';
+import AdminRoute from './components/AdminRoute.tsx';
+import AdminPage from './pages/Admin.tsx';
 
 const App = () => {
   return (
@@ -17,6 +19,14 @@ const App = () => {
       <Routes>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route 
+          path="admin" 
+          element={
+            <AdminRoute>
+              <AdminPage />
+            </AdminRoute>
+          } 
+        />
 
         <Route path=":teamId/:projectId" element={<Layout />}>
           <Route index element={<Home />} />

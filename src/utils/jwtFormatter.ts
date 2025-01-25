@@ -1,27 +1,46 @@
-export const decodeJWT =()=> {
-    const token = localStorage.getItem('authToken');
+interface JWTPayload {
+    token_type: string;
+    exp: number;
+    iat: number;
+    jti: string;
+    user_id: number;
+    role: string;
+    username: string;
+    email: string;
+}
 
-    if(!token){
-        return
+export const decodeJWT = (): JWTPayload | null => {
+    const token = localStorage.getItem('authToken');
+    if (!token) return null;
+
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    } catch (error) {
+        console.error('Error decoding JWT:', error);
+        return null;
     }
-    const [header, payload, signature] = token.split('.');
-  
-    function base64UrlDecode(base64Url) {
-      let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      
-      const padding = base64.length % 4;
-      if (padding) {
-        base64 += '='.repeat(4 - padding);
-      }
-      
-      const decoded = atob(base64);
-      return decoded;
-    }
-  
-    const decodedPayload = base64UrlDecode(payload);
+};
+
+export const isUserAdmin = (): boolean => {
+    const user = decodeJWT();
+    return user?.role === 'admin' || false;
+};
+
+export const getUserData = (): Partial<JWTPayload> | null => {
+    const user = decodeJWT();
+    if (!user) return null;
     
-    const payloadObject = JSON.parse(decodedPayload);
-  
-    return payloadObject;
-  }
+    return {
+        user_id: user.user_id,
+        username: user.username,
+        email: user.email,
+        role: user.role
+    };
+};
   

@@ -11,6 +11,7 @@ import menu from "./../../assets/menu.png"
 import fileH from "./../../assets/file-h.png"
 import file from "./../../assets/file.png"
 import Nav from './Nav.tsx';
+import { isUserAdmin } from '../../utils/jwtFormatter.ts';
 
 
 const links = [
@@ -38,6 +39,8 @@ interface IProps {
 }
 
 const Navs:React.FC<IProps> = ({open, setOpen}) => {
+    const isAdmin = isUserAdmin();
+    
     return (
         <nav className="nav-wrapper">
             <div className="navs">
@@ -48,6 +51,9 @@ const Navs:React.FC<IProps> = ({open, setOpen}) => {
                 }
                 <div className="divider"></div>
                 <Nav onClick={()=>setOpen(!open)} className={`menu ${open ? "active" : ""}`} icon={menu} iconH={menuH} isLink={false}/>
+                {isAdmin && (
+                    <Nav to="/admin" icon={teams} iconH={teamsH} />
+                )}
             </div>
             <div className="navs-settings">
                 <Nav to={"settings"} icon={settings}/>

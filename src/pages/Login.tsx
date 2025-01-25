@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './Login.scss'
 import { Link, useNavigate } from 'react-router';
 import { login } from '../api/index.ts';
+import logo from "../assets/logo-3.png";
+
 const Login = () => {
     const [formData, setFormData] = useState({ username: '', password: '' });
     const navigate = useNavigate()
@@ -27,7 +29,7 @@ const Login = () => {
   
     return (
       <div className="login-page">
-        <h1>Login</h1>
+        <h1><img className="logo-3" src={logo} alt="Logo-3" /></h1>
         <form onSubmit={handleSubmit}>
           <input
             type="username"
